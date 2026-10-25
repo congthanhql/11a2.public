@@ -1,242 +1,108 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Quản lý lớp 11A2</title>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f4f6fb;--card:#fff;--ink:#0f2a43;--mut:#62708a;--line:#e1e7f1;--soft:#eef2f9;--pri:#1d5fd6;--good:#15803d;--bad:#c62828;--warn:#d97706;--t1:#1d5fd6;--t2:#15803d;--t3:#d97706;--t4:#7c3aed;color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1722;--card:#15222f;--ink:#e8eef6;--mut:#93a3b8;--line:#243546;--soft:#1c2d3d;--pri:#5b94f5;--good:#4ade80;--bad:#f87171;--warn:#fbbf24;color-scheme:dark}}
-*{box-sizing:border-box}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Be Vietnam Pro",system-ui,sans-serif}
-header{background:linear-gradient(110deg,#0b2239,#1d5a8f);color:#fff;padding:14px 16px}
-header div{max-width:980px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-header b{font-size:18px;font-weight:800}header small{opacity:.8}
-main{max-width:980px;margin:auto;padding:14px}
-nav{display:flex;gap:6px;overflow-x:auto;background:var(--soft);padding:4px;border-radius:12px;margin-bottom:14px}
-nav button{border:0;background:none;color:var(--ink);padding:9px 14px;border-radius:9px;font:inherit;font-weight:600;white-space:nowrap;cursor:pointer}
-nav .on{background:var(--ink);color:var(--card)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px}
-h2{margin:0 0 10px;font-size:19px}h3{margin:0 0 8px;font-size:16px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.sp{justify-content:space-between}
-.mut{color:var(--mut)}.sm{font-size:13px}
-button,select,input{font:inherit;color:var(--ink)}
-.btn{border:0;border-radius:10px;padding:9px 14px;background:var(--pri);color:#fff;font-weight:600;cursor:pointer;min-height:40px}
-.btn.g{background:var(--soft);color:var(--ink)}.btn.r{background:var(--bad);color:#fff}.btn.s{padding:4px 10px;min-height:32px;font-size:13px}
-input,select{padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--card);min-height:40px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.stat span{color:var(--mut);font-size:12.5px}.stat b{display:block;font-size:24px}
-.rk,.mem{display:flex;gap:10px;align-items:center;width:100%;border:0;border-top:1px solid var(--line);background:none;padding:10px 4px;text-align:left;cursor:pointer;color:var(--ink)}
-.rk:first-of-type,.mem:first-of-type{border-top:0}
-.dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;flex:none;background:var(--c)}
-.grow{flex:1;min-width:0}.grow small{display:block;color:var(--mut)}
-.sc{font-weight:800;font-size:18px}
-.bar{height:6px;background:var(--soft);border-radius:9px;margin-top:5px;overflow:hidden}.bar i{display:block;height:100%;background:var(--c)}
-.tag{font-size:12px;padding:2px 9px;border-radius:99px;font-weight:600;background:var(--soft);color:var(--mut)}
-.up{color:var(--good)}.dn{color:var(--bad)}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
-.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:6px 12px;font-size:13px;font-weight:600;cursor:pointer}
-.chip.on{background:var(--ink);color:var(--card)}
-.rec{display:flex;gap:8px;align-items:center;padding:8px 0;border-top:1px dashed var(--line)}.rec:first-of-type{border-top:0}
-.at{display:flex;gap:4px}.at button{border:1px solid var(--line);background:var(--card);color:var(--mut);border-radius:8px;padding:6px 10px;font-weight:600;cursor:pointer;min-height:38px}
-.at .on.p{background:var(--good);color:#fff}.at .on.l{background:var(--warn);color:#fff}.at .on.e{background:var(--pri);color:#fff}.at .on.a{background:var(--bad);color:#fff}
-.arow{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:8px 0;border-top:1px solid var(--line)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.empty{text-align:center;color:var(--mut);padding:18px}
-#toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--card);padding:9px 16px;border-radius:12px;display:none;z-index:9}
-footer{text-align:center;color:var(--mut);font-size:12.5px;padding:14px}
-@media(max-width:640px){.stats{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<header><div><span><b>Quản lý lớp 11A2</b><br><small>Thi đua · Nền nếp · Điểm danh</small></span><span class="tag" id="mode"></span></div></header>
-<main>
-<nav id="nav"></nav>
-<div id="app"></div>
-</main>
-<footer>© 2026 Lớp 11A2 · Mỗi học sinh bắt đầu từ 100 điểm</footer>
-<div id="toast" role="status"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-const ITEMS=[["Đi học muộn",-2],["Không làm bài tập",-3],["Không thuộc bài",-2],["Nói chuyện riêng",-2],["Mất trật tự",-3],["Sai đồng phục",-2],["Vứt rác bừa bãi",-2],["Dùng điện thoại trong giờ",-5],["Nghỉ học không phép",-5],["Đánh nhau, mất đoàn kết",-10],["Phát biểu xây dựng bài",2],["Điểm 9–10",3],["Giúp đỡ bạn bè",2],["Trực nhật tốt",2],["Tham gia phong trào",3],["Việc tốt được khen",5]];
-const COL=["","var(--t1)","var(--t2)","var(--t3)","var(--t4)"];
-const MS={p:"Có mặt",l:"Muộn",e:"Phép",a:"Vắng"};
-const $=s=>document.querySelector(s);
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const ld=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
-const sg=n=>(n>0?"+":"")+n;
-const uid=()=>Math.random().toString(36).slice(2,9);
-const WEEKS=Array.from({length:29},(_,i)=>i+7);
-let D={m:{},r:{},a:{}},db=null,ref=null,edit=true,lastSaved="";
-const S={tab:"home",w:7,sel:null,date:ld(new Date()),ses:new Date().getHours()<12?"s":"c",pick:null,custom:false};
+#!/usr/bin/env python3
+"""Nâng cấp trang thi đua 11A2 thành SaaS đa trường / đa lớp.
+Dùng:  python3 patch_saas.py index.html   ->  tạo index.saas.html
+Dữ liệu cũ (members, records, attendance, requests ở gốc DB) được giữ nguyên
+và trở thành lớp mặc định "11A2" của trường "default"."""
+import sys
+src = sys.argv[1] if len(sys.argv) > 1 else "index.html"
+t = open(src, encoding="utf-8").read()
+R = []
+def r(old, new): R.append((old, new))
 
-function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display="none",2400)}
-function normalize(x){return {m:x&&x.m||{},r:x&&x.r||{},a:x&&x.a||{}}}
-function loadLocal(){try{return normalize(JSON.parse(localStorage.getItem("lop11a2")))}catch(e){return normalize(null)}}
-async function save(){
-  const s=JSON.stringify(D);lastSaved=s;
-  if(ref){try{await ref.set({json:s})}catch(e){toast("Không lưu được: "+(e.message||e.code))}}
-  else{try{localStorage.setItem("lop11a2",s)}catch(e){}}
-  render();
-}
-async function init(){
-  D=loadLocal();
-  try{
-    if(window.claude){
-      db=await claude.use("db");const u=await claude.use("user");
-      if(db){ref=db.doc("class/state");edit=u?u.canEdit():false;
-        ref.onSnapshot(snap=>{const d=snap.exists&&snap.data();if(d&&d.json&&d.json!==lastSaved){try{D=normalize(JSON.parse(d.json))}catch(e){}}render()},()=>{});
-        const first=await ref.get();if(!first.exists&&edit&&Object.keys(D.m).length)await ref.set({json:JSON.stringify(D)});
-      }
-    }
-  }catch(e){db=null;ref=null;edit=true}
-  render();
-}
-const mem=t=>Object.entries(D.m).filter(([,m])=>m.t==t).map(([id,m])=>({id,...m}));
-const recs=()=>Object.entries(D.r).map(([id,r])=>({id,...r}));
-const score=(mid,w)=>100+recs().filter(r=>r.mid==mid&&(!w||r.w==w)).reduce((a,r)=>a+r.p,0);
-const bad=(mid,w)=>recs().some(r=>r.mid==mid&&r.p<0&&(!w||r.w==w));
-const mark=(mid,d=S.date,s=S.ses)=>D.a[d+"|"+s+"|"+mid]||"";
-const initial=n=>(n.trim().split(" ").pop()[0]||"?").toUpperCase();
+r('<span class="logo">11A2</span><span><b>Thi đua lớp 11A2</b><small>Theo dõi nền nếp và điểm thi đua</small></span>',
+  '<span class="logo" id="lg">11A2</span><span><b id="hb">Thi đua lớp 11A2</b><small id="hs">Theo dõi nền nếp và điểm thi đua</small></span>')
 
-function teamStat(t,w){const ms=mem(t),n=ms.length,vio=ms.filter(m=>bad(m.id,w)).length;return {t,n,vio,avg:n?ms.reduce((a,m)=>a+score(m.id,w),0)/n:0}}
+r('getDatabase,ref,onValue', 'getDatabase,ref:rawRef,onValue')
 
-function home(){
-  const st=[1,2,3,4].map(t=>teamStat(t,S.w)).sort((a,b)=>b.avg-a.avg),all=Object.keys(D.m).length,vio=st.reduce((a,s)=>a+s.vio,0);
-  const lo=Math.min(100,...st.map(s=>s.avg)),hi=Math.max(100,...st.map(s=>s.avg));
-  const ppl=Object.entries(D.m).map(([id,m])=>({...m,id,s:score(id,S.w)})).sort((a,b)=>b.s-a.s);
-  const mini=a=>a.length?a.map(m=>`<div class="rec"><span class="grow">${esc(m.n)} <small class="mut">Tổ ${m.t}</small></span><b>${m.s}</b></div>`).join(""):`<div class="mut">Chưa có dữ liệu.</div>`;
-  return `<div class="row sp" style="margin-bottom:10px"><h2 style="margin:0">Xếp hạng các tổ</h2>${weekSel()}</div>
-  <div class="stats"><div class="stat"><span>Học sinh</span><b>${all}</b></div><div class="stat"><span>Vi phạm</span><b class="dn">${vio}</b></div><div class="stat"><span>Không vi phạm</span><b class="up">${all-vio}</b></div><div class="stat"><span>Điểm TB lớp</span><b>${all?(ppl.reduce((a,m)=>a+m.s,0)/all).toFixed(1):"0.0"}</b></div></div>
-  <div class="card">${st.map((s,i)=>`<button class="rk" data-a="tab" data-t="t${s.t}" style="--c:${COL[s.t]}"><span class="dot" style="background:${i==0?"#d99a00":"var(--soft)"};color:${i==0?"#fff":"var(--ink)"}">${i+1}</span><span class="grow"><b>Tổ ${s.t}</b><small>${s.n} HS · ${s.vio} vi phạm</small><span class="bar"><i style="width:${hi==lo?50:Math.max(6,(s.avg-lo+5)/(hi-lo+5)*100)}%"></i></span></span><span class="sc">${s.avg.toFixed(1)}</span></button>`).join("")}</div>
-  <div class="two"><div class="card"><h3>Top 5 điểm cao</h3>${mini(ppl.slice(0,5))}</div><div class="card"><h3>5 bạn cần quan tâm</h3>${mini([...ppl].reverse().slice(0,5))}</div></div>
-  ${all?"":`<div class="card empty">Chưa có học sinh. Vào “Tổ 1…4” để thêm tổ viên.${edit?"":" (Bạn đang ở chế độ chỉ xem.)"}</div>`}
-  <div class="row"><button class="btn" data-a="pdf">Tải báo cáo PDF</button><button class="btn g" data-a="csv">Tải CSV</button></div>`;
-}
-const weekSel=()=>`<select data-c="week" aria-label="Chọn tuần">${WEEKS.map(w=>`<option value="${w}" ${w==S.w?"selected":""}>Tuần ${w}</option>`).join("")}</select>`;
+r('const app=initializeApp(cfg),auth=getAuth(app),db=getDatabase(app);',
+r'''const app=initializeApp(cfg),auth=getAuth(app),db=getDatabase(app);
+/* ===== Đa trường / đa lớp: lớp cũ (default/11A2) vẫn nằm ở gốc DB, lớp mới ở schools/{sid}/c/{cid} ===== */
+const baseOf=()=>S.sid=="default"&&S.cid=="11A2"?"":`schools/${S.sid}/c/${S.cid}`;
+const P=p=>/^(users|schools)(\/|$)/.test(p)||!baseOf()?p:baseOf()+"/"+p;
+const ref=(d,p)=>p==null?(baseOf()?rawRef(d,baseOf()):rawRef(d)):rawRef(d,P(p));
+const ctx=()=>{const h=new URLSearchParams(location.hash.slice(1));S.sid=h.get("s")||"default";S.cid=h.get("c")||(S.sid=="default"?"11A2":"_")};''')
 
-function team(t){
-  const ms=mem(t).sort((a,b)=>a.n.localeCompare(b.n,"vi")),vio=ms.filter(m=>bad(m.id,S.w)).length;
-  return `<div class="row sp" style="margin-bottom:10px"><h2 style="margin:0;color:${COL[t]}">Tổ ${t}</h2>${weekSel()}</div>
-  <div class="stats"><div class="stat"><span>Tổ viên</span><b>${ms.length}</b></div><div class="stat"><span>Vi phạm</span><b class="dn">${vio}</b></div><div class="stat"><span>Không vi phạm</span><b class="up">${ms.length-vio}</b></div><div class="stat"><span>Điểm TB</span><b>${teamStat(t,S.w).avg.toFixed(1)}</b></div></div>
-  <div class="card"><h3>Tổ viên – tuần ${S.w}</h3>
-  ${ms.length?ms.map(m=>`<button class="mem" data-a="sel" data-m="${m.id}" style="--c:${COL[t]}"><span class="dot">${esc(initial(m.n))}</span><span class="grow">${esc(m.n)}<small>Tuần ${S.w}: ${sg(score(m.id,S.w)-100)}</small></span><span class="tag ${bad(m.id,S.w)?"dn":"up"}">${bad(m.id,S.w)?"Vi phạm":"Tốt"}</span><span class="sc">${score(m.id)}</span></button>${S.sel==m.id?panel(m):""}`).join(""):`<div class="empty">Chưa có tổ viên.</div>`}
-  ${edit?`<form class="row" data-f="addmem" data-t="${t}" style="margin-top:12px"><input name="n" placeholder="Họ tên tổ viên" required style="flex:1"><button class="btn">Thêm tổ viên</button></form>`:""}</div>`;
-}
-function panel(m){
-  const rs=recs().filter(r=>r.mid==m.id&&r.w==S.w).sort((a,b)=>b.ts-a.ts);
-  return `<div style="padding:8px 4px 14px;border-top:1px dashed var(--line)">
-  <div class="mut sm" style="margin-bottom:6px">Ghi nhận tuần ${S.w} · Tổng điểm <b style="color:var(--ink)">${score(m.id)}</b></div>
-  ${rs.length?rs.map(r=>`<div class="rec"><span class="grow">${esc(r.i)}<small>${new Date(r.ts).toLocaleDateString("vi-VN")}</small></span><b class="${r.p>0?"up":"dn"}">${sg(r.p)}</b>${edit?`<button class="btn r s" data-a="rdel" data-id="${r.id}">Xóa</button>`:""}</div>`).join(""):`<div class="mut sm">Chưa có ghi nhận.</div>`}
-  ${edit?`<form data-f="addrec" data-m="${m.id}" style="margin-top:10px"><div class="chips">${ITEMS.map((x,i)=>`<button type="button" class="chip ${!S.custom&&S.pick==i?"on":""}" data-a="chip" data-i="${i}">${x[0]} (${sg(x[1])})</button>`).join("")}<button type="button" class="chip ${S.custom?"on":""}" data-a="chip" data-i="c">✎ Tự nhập</button></div>
-  ${S.custom?`<div class="row" style="margin-bottom:8px"><input name="reason" placeholder="Nội dung" maxlength="80" style="flex:1 1 180px"><select name="sign"><option value="-1">Trừ (−)</option><option value="1">Cộng (+)</option></select><input name="pts" type="number" min="1" max="100" placeholder="Điểm" style="width:90px"></div>`:""}
-  <div class="row"><button class="btn">Ghi điểm</button><button type="button" class="btn r s" data-a="delmem" data-m="${m.id}">Xóa tổ viên</button></div></form>`:""}</div>`;
-}
+r('const S={user:null,', 'const S={sid:"default",cid:"11A2",psid:"default",pcid:"11A2",tsid:null,reg:{},sname:"",user:null,')
 
-function att(){
-  const today=ld(new Date());
-  let html=`<div class="row sp" style="margin-bottom:10px"><h2 style="margin:0">Điểm danh</h2><div class="row"><button class="btn g s" data-a="dstep" data-d="-1">‹</button><input type="date" value="${S.date}" max="${today}" data-c="date" aria-label="Chọn ngày"><button class="btn g s" data-a="dstep" data-d="1">›</button></div></div>
-  <div class="chips">${["s","c"].map(k=>`<button class="chip ${S.ses==k?"on":""}" data-a="ses" data-s="${k}">${k=="s"?"☀️ Buổi sáng":"🌤️ Buổi chiều"}</button>`).join("")}</div>`;
-  const all=Object.keys(D.m),c={p:0,l:0,e:0,a:0,un:0};all.forEach(id=>c[mark(id)||"un"]++);
-  html+=`<div class="stats"><div class="stat"><span>Có mặt</span><b class="up">${c.p}</b></div><div class="stat"><span>Muộn</span><b style="color:var(--warn)">${c.l}</b></div><div class="stat"><span>Vắng</span><b class="dn">${c.e+c.a}</b></div><div class="stat"><span>Chưa chọn</span><b>${c.un}</b></div></div>`;
-  html+=[1,2,3,4].map(t=>{const ms=mem(t).sort((a,b)=>a.n.localeCompare(b.n,"vi"));
-    return `<div class="card"><div class="row sp"><h3 style="color:${COL[t]};margin:0">Tổ ${t}</h3>${edit&&ms.length?`<button class="btn g s" data-a="allp" data-t="${t}">Tất cả có mặt</button>`:""}</div>
-    ${ms.length?ms.map(m=>{const k=mark(m.id);return `<div class="arow"><span class="grow">${esc(m.n)}</span>${edit?`<div class="at">${Object.entries(MS).map(([x,l])=>`<button class="${x} ${k==x?"on":""}" data-a="mark" data-m="${m.id}" data-s="${x}" aria-pressed="${k==x}">${l}</button>`).join("")}</div>`:`<span class="tag">${k?MS[k]:"Chưa chọn"}</span>`}</div>`}).join(""):`<div class="mut sm" style="padding-top:8px">Chưa có tổ viên.</div>`}</div>`}).join("");
-  return html;
-}
+r('const isStaff=()=>S.role=="admin"||S.role=="teacher";',
+  'const mine=()=>S.psid==S.sid&&S.pcid==S.cid;\nconst tOK=()=>S.role=="teacher"&&(S.tsid?S.tsid==S.sid:S.sid=="default"&&S.cid=="11A2");\nconst isStaff=()=>S.role=="admin"||tOK();')
+r('const isAdmin=()=>S.role=="admin";', 'const isAdmin=()=>S.role=="admin"||(tOK()&&!!S.tsid);')
+r('const canLead=to=>S.role=="leader"&&S.to==to;', 'const canLead=to=>S.role=="leader"&&S.to==to&&mine();')
 
-function render(){
-  $("#mode").textContent=ref?(edit?"Quản trị · đồng bộ":"Chỉ xem · đồng bộ"):"Chế độ cục bộ";
-  const tabs=[["home","Xếp hạng"],["t1","Tổ 1"],["t2","Tổ 2"],["t3","Tổ 3"],["t4","Tổ 4"],["att","Điểm danh"]];
-  $("#nav").innerHTML=tabs.map(([k,l])=>`<button data-a="tab" data-t="${k}" class="${S.tab==k?"on":""}">${l}</button>`).join("");
-  $("#app").innerHTML=S.tab=="home"?home():S.tab=="att"?att():team(+S.tab[1]);
+r('''const pubSubs=[];
+listen("members","members",pubSubs);listen("records","records",pubSubs);listen("attendance","att",pubSubs);''',
+r'''function bind(){
+  unsubs.forEach(f=>f());unsubs=[];S.loaded=false;
+  Object.assign(S,{members:{},records:{},att:{},requests:{},users:{},reg:{},sname:""});
+  const u=unsubs;
+  listen("members","members",u);listen("records","records",u);listen("attendance","att",u);
+  listen("schools/"+S.sid+"/registry","reg",u);listen("schools/"+S.sid+"/name","sname",u);
+  if(S.role&&S.role!="student"&&(isStaff()||mine()))listen("requests","requests",u);
+  if(isAdmin())listen("users","users",u);
 }
+ctx();bind();''')
 
-async function csv(){
-  const rows=[["Tổ","Họ tên","Điểm tuần "+S.w,"Điểm tổng","Vi phạm","Có phép","Vắng","Muộn"]];
-  const cnt={};Object.entries(D.a).forEach(([k,v])=>{const id=k.split("|")[2];(cnt[id]=cnt[id]||{e:0,a:0,l:0})[v]++});
-  [1,2,3,4].forEach(t=>mem(t).forEach(m=>{const c=cnt[m.id]||{};rows.push([t,m.n,score(m.id,S.w),score(m.id),bad(m.id,S.w)?"Có":"Không",c.e||0,c.a||0,c.l||0])}));
-  const data="\ufeff"+rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(",")).join("\n");
-  try{const dl=window.claude&&await claude.use("downloads");
-    if(dl)await dl.save({filename:"thi-dua-11A2.csv",data});
-    else{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"text/csv;charset=utf-8"}));a.download="thi-dua-11A2.csv";a.click()}
-  }catch(e){toast("Bạn đã hủy tải xuống.")}
-}
+r('''  unsubs.forEach(f=>f());unsubs=[];
+  if(!u){Object.assign(S,{user:null,role:null,to:null,name:"",requests:{},users:{},view:"home",sel:null});return render()}''',
+  '''  if(!u){Object.assign(S,{user:null,role:null,to:null,name:"",tsid:null,psid:"default",pcid:"11A2",view:"home",sel:null});bind();return render()}''')
+r('''  if(p.role!="student")listen("requests","requests",unsubs);
+  if(p.role=="admin")listen("users","users",unsubs);''',
+r'''  Object.assign(S,{tsid:p.role=="teacher"?p.sid||null:null,psid:p.sid||"default",pcid:p.cid||(p.sid?"_":"11A2")});
+  if(p.role!="admin"&&S.psid!=S.sid){history.replaceState(null,"","#s="+S.psid+"&c="+S.pcid);ctx()}
+  bind();''')
+r('let t=S.pending||(isStaff()?"admin":p.to);', 'let t=S.pending||(isStaff()?(S.cid=="_"?"home":"admin"):p.to);')
 
-async function pdf(){
-  if(!window.html2canvas||!window.jspdf)return toast("Chưa tải được thư viện PDF.");
-  toast("Đang tạo PDF…");
-  const cnt={};Object.entries(D.a).forEach(([k,v])=>{const id=k.split("|")[2];if(D.m[id]&&v!="p")(cnt[id]=cnt[id]||{e:0,a:0,l:0})[v]++});
-  const th=h=>`<tr>${h.map(x=>`<th style="border:1px solid #999;padding:5px;background:#e9edf3;text-align:left">${x}</th>`).join("")}</tr>`;
-  const td=r=>`<tr>${r.map(x=>`<td style="border:1px solid #999;padding:5px;vertical-align:top">${x}</td>`).join("")}</tr>`;
-  const tbl=(h,rows)=>`<table style="width:100%;border-collapse:collapse;font-size:12px">${th(h)}${rows.map(td).join("")}</table>`;
-  const st=[1,2,3,4].map(t=>teamStat(t,S.w)).sort((a,b)=>b.avg-a.avg);
-  const blocks=[`<h2 style="margin:0 0 4px">Báo cáo thi đua lớp 11A2 – Tuần ${S.w}</h2><div style="color:#444;margin-bottom:10px">Ngày lập: ${new Date().toLocaleDateString("vi-VN")}</div>`+tbl(["Hạng","Tổ","Số HS","Điểm TB","HS vi phạm"],st.map((s,i)=>[i+1,"Tổ "+s.t,s.n,s.avg.toFixed(1),s.vio]))];
-  [1,2,3,4].forEach(t=>{
-    const rows=mem(t).sort((a,b)=>a.n.localeCompare(b.n,"vi")).map((m,i)=>{
-      const c=cnt[m.id]||{e:0,a:0,l:0},v=recs().filter(r=>r.mid==m.id&&r.w==S.w&&r.p<0).map(r=>esc(r.i)+" ("+r.p+")").join("; ");
-      return [i+1,esc(m.n),score(m.id,S.w),`Phép ${c.e} · Vắng ${c.a} · Muộn ${c.l}`,v||"Không có"]});
-    blocks.push(`<h3 style="margin:0 0 6px">Tổ ${t} – ${rows.length} học sinh</h3>`+(rows.length?tbl(["STT","Họ tên","Điểm","Điểm danh","Vi phạm trong tuần"],rows):"Chưa có tổ viên."));
-  });
-  const J=window.jspdf.jsPDF,doc=new J({unit:"mm",format:"a4"}),W=190,PH=277;let y=10,first=true;
-  const host=document.createElement("div");host.style.cssText="position:fixed;left:-9999px;top:0";document.body.appendChild(host);
-  try{
-    for(const b of blocks){
-      const el=document.createElement("div");el.style.cssText="width:760px;padding:12px 16px;background:#fff;color:#000;font:13px/1.45 'Be Vietnam Pro',Arial,sans-serif";el.innerHTML=b;host.appendChild(el);
-      const cv=await html2canvas(el,{scale:2,backgroundColor:"#fff"}),h=cv.height*W/cv.width;
-      if(h<=PH){if(!first&&y+h>287){doc.addPage();y=10}doc.addImage(cv.toDataURL("image/jpeg",.92),"JPEG",10,y,W,h);y+=h+4}
-      else{
-        if(!first){doc.addPage();y=10}
-        const ph=Math.floor(PH*cv.width/W);
-        for(let s=0;s<cv.height;s+=ph){
-          const sh=Math.min(ph,cv.height-s),c2=document.createElement("canvas");c2.width=cv.width;c2.height=sh;
-          c2.getContext("2d").drawImage(cv,0,s,cv.width,sh,0,0,cv.width,sh);
-          if(s>0)doc.addPage();
-          doc.addImage(c2.toDataURL("image/jpeg",.92),"JPEG",10,10,W,sh*W/cv.width);y=10+sh*W/cv.width+4;
-        }
-      }
-      first=false;
-    }
-    const blob=doc.output("blob"),name="bao-cao-11A2-tuan"+S.w+".pdf";
-    const dl=window.claude&&await claude.use("downloads");
-    if(dl)await dl.save({filename:name,data:blob});
-    else{const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click()}
-  }catch(e){toast("Không tạo được PDF.")}
-  host.remove();
+r('S.user&&S.role=="leader"&&S.to?', 'S.user&&S.role=="leader"&&S.to&&mine()?')
+
+r('return `<div class="hero"><h2>Chào mừng đến trang thi đua 11A2</h2>',
+  'return classCard()+`<div class="hero"><h2>Chào mừng đến trang thi đua ${cname()}</h2>')
+
+r('function render(){',
+r'''function render(){
+  const sn=typeof S.sname=="string"&&S.sname?S.sname:"";
+  $("#hb").textContent="Thi đua lớp "+cname();$("#hs").textContent=sn||"Theo dõi nền nếp và điểm thi đua";
+  $("#lg").textContent=cname().slice(0,5);document.title="Thi đua lớp "+cname();''')
+
+r('<h2>Báo cáo thi đua lớp 11A2 – ${lbl}</h2>', '<h2>Báo cáo thi đua lớp ${esc(cname())} – ${lbl}</h2>')
+
+r('const us=Object.entries(S.users).sort(',
+  'const us=Object.entries(S.users).filter(([,u])=>(u.sid||"default")==S.sid&&(u.role=="teacher"||(u.cid||"11A2")==S.cid)).sort(')
+r('<input name="pw" placeholder="Mật khẩu (≥ 6 ký tự)" minlength="6" required>',
+  '<input name="pw" placeholder="Mật khẩu (≥ 6 ký tự)" minlength="6" required><input name="school" placeholder="Tên trường (nếu tạo giáo viên mới)">')
+r('if(p.role!="teacher")p.to=+f.to.value;',
+r'''if(p.role=="teacher"){p.sid=slug(f.school.value)||S.sid;if(f.school.value.trim())await set(rawRef(db,"schools/"+p.sid+"/name"),f.school.value.trim())}
+      else{p.to=+f.to.value;p.sid=S.sid;p.cid=S.cid}''')
+
+r('await remove(ref(db,"users/"+d.id))})',
+  'await remove(ref(db,"users/"+d.id))}),\n  cls(d){location.hash=`s=${S.sid}&c=${d.c}`;S.view="home";render()}')
+r('  addmem:guard(async f=>{const n=f.name.value.trim();if(!n)return;',
+r'''  addclass:guard(async f=>{const n=f.name.value.trim(),c=slug(n);if(!c)return toast("Tên lớp không hợp lệ.");
+    await set(rawRef(db,`schools/${S.sid}/registry/${c}`),{name:n,by:S.name,ts:Date.now()});f.reset();toast("Đã tạo lớp "+n+". Bấm vào lớp để bắt đầu.")}),
+  gosch(f){const s=slug(f.sid.value);if(s)location.hash=`s=${s}&c=_`},
+  addmem:guard(async f=>{const n=f.name.value.trim();if(!n)return;''')
+
+r('/* ---------- Hộp thoại ---------- */',
+r'''/* ---------- Trường / lớp ---------- */
+const slug=s=>fold(s).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,30);
+const cname=()=>(S.reg[S.cid]&&S.reg[S.cid].name)||(S.cid=="11A2"?"11A2":S.cid=="_"?"(chưa chọn lớp)":S.cid);
+function classCard(){
+  const reg={...(S.sid=="default"?{"11A2":{name:"11A2"}}:{}),...S.reg},own=isAdmin()&&(S.role=="admin"||S.tsid==S.sid);
+  const sn=typeof S.sname=="string"&&S.sname?S.sname:S.sid=="default"?"Trường mặc định":S.sid;
+  return `<div class="card noprint"><h3 style="margin:0">🏫 ${esc(sn)}</h3><div class="mut sm">Chọn lớp để xem hoặc quản lý. Mỗi lớp có link riêng để chia sẻ.</div>
+  <div class="chips" style="margin-top:10px">${Object.entries(reg).map(([c,v])=>`<button class="chip ${c==S.cid?"on":""}" data-a="cls" data-c="${esc(c)}">${esc(v.name||c)}</button>`).join("")||`<span class="mut sm">Chưa có lớp nào.</span>`}</div>
+  ${own?`<form class="row" data-f="addclass" style="margin-top:10px"><input name="name" placeholder="Tên lớp mới (VD: 10A1)" required style="flex:1"><button class="btn">Tạo lớp</button></form>`:""}
+  ${S.role=="admin"?`<form class="row" data-f="gosch" style="margin-top:8px"><input name="sid" placeholder="Mã trường (VD: thpt-hue)" required style="flex:1"><button class="btn g">Mở trường</button></form>`:""}</div>`;
 }
-const A={
-  tab(d){S.tab=d.t;S.sel=null;S.pick=null;S.custom=false;render();scrollTo(0,0)},
-  sel(d){S.sel=S.sel==d.m?null:d.m;S.pick=null;S.custom=false;render()},
-  chip(d){if(d.i=="c"){S.custom=true;S.pick=null}else{S.custom=false;S.pick=+d.i}render()},
-  ses(d){S.ses=d.s;render()},
-  dstep(d){const t=ld(new Date()),[y,m,dd]=S.date.split("-").map(Number),n=ld(new Date(y,m-1,dd+ +d.d));S.date=n>t?t:n;render()},
-  mark(d){if(!edit)return;const k=D.a[S.date+"|"+S.ses+"|"+d.m]==d.s?null:d.s;const key=S.date+"|"+S.ses+"|"+d.m;if(k)D.a[key]=k;else delete D.a[key];save()},
-  allp(d){if(!edit)return;mem(+d.t).forEach(m=>{const key=S.date+"|"+S.ses+"|"+m.id;if(!D.a[key])D.a[key]="p"});save()},
-  rdel(d){if(edit&&confirm("Xóa ghi nhận này?")){delete D.r[d.id];save()}},
-  delmem(d){if(edit&&confirm("Xóa tổ viên và toàn bộ lịch sử điểm?")){delete D.m[d.m];Object.keys(D.r).forEach(k=>{if(D.r[k].mid==d.m)delete D.r[k]});Object.keys(D.a).forEach(k=>{if(k.split("|")[2]==d.m)delete D.a[k]});S.sel=null;save()}},
-  csv,pdf
-};
-const F={
-  addmem(f){const n=f.n.value.trim();if(!n||!edit)return;D.m[uid()]={n,t:+f.dataset.t};save();toast("Đã thêm tổ viên.")},
-  addrec(f){
-    let it=null;
-    if(S.custom){const r=(f.reason?.value||"").trim(),n=Math.abs(parseInt(f.pts?.value,10));if(r&&n)it=[r,(+f.sign.value)*Math.min(n,100)]}
-    else if(S.pick!=null)it=ITEMS[S.pick];
-    if(!it)return toast(S.custom?"Nhập nội dung và số điểm lớn hơn 0.":"Hãy chọn một mục trước.");
-    D.r[uid()]={mid:f.dataset.m,w:S.w,i:it[0],p:it[1],ts:Date.now()};S.pick=null;S.custom=false;save();toast("Đã ghi điểm.")
-  }
-};
-document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b)A[b.dataset.a]?.(b.dataset)});
-document.addEventListener("change",e=>{const c=e.target.dataset.c;
-  if(c=="week"){S.w=+e.target.value;render()}
-  if(c=="date"&&e.target.value){const t=ld(new Date());S.date=e.target.value>t?t:e.target.value;render()}});
-document.addEventListener("submit",e=>{e.preventDefault();F[e.target.dataset.f]?.(e.target);});
-init();
-</script>
-</body>
-</html>
+/* ---------- Hộp thoại ---------- */''')
+
+r('document.addEventListener("keydown"',
+  'addEventListener("hashchange",()=>{ctx();S.view="home";S.sel=null;bind();render()});\ndocument.addEventListener("keydown"')
+
+for old, new in R:
+    n = t.count(old)
+    if n != 1:
+        sys.exit(f"LỖI: tìm thấy {n} vị trí (cần 1) cho:\n{old[:90]}")
+    t = t.replace(old, new)
+out = src.replace(".html", ".saas.html")
+open(out, "w", encoding="utf-8").write(t)
+print("Đã tạo", out)
